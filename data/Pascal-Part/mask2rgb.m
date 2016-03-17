@@ -17,13 +17,5 @@ end
 unmaskedRGB = imcrop(im, rect);
 unmaskedRGB = imresize(unmaskedRGB,outputSize);
 
-
-% croppedMask = mask(param(2):param(2)+param(4),param(1):param(1)+param(3));
-% need to retrieve actual image subset before resizing
- 
-
-% [croppedMask,newcmap] = resize(croppedMask,cmap,outputSize);
- 
- 
 end
 
