@@ -6,7 +6,8 @@ data/VOC2012/*
 *.jpg
 data/imagesets/*
 *.txt
-data/Pascal-Part
+data/Pascal-Part/Annotations_Part
+data/Pascal-Part/examples
 data/cifar10
 data/ilsvrc12
 data/mnist
