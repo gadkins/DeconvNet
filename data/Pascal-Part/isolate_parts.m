@@ -32,7 +32,7 @@ pimap = part2ind();     % part index mapping
 % Select a class and part
 className = 'person';
 classID = classMap(className);
-partName = 'torso';
+partName = 'head';
 
 close all
 % Input
@@ -73,27 +73,21 @@ for ii = 1:numel(examples_imgs)
             
             [croppedRGB,croppedMask] = cropPart(img,part_mask,[250,250]);
             
+            % N.B. '_2.jpg' means there are at least two instances of
+            % the object class, however, not necessarily two instances of
+            % the part
             imfile = fullfile(outputImDir,imname);
-            try
-                imread(imfile);
-                [pathstr,basename,ext] = fileparts(imfile);
-                multiInstanceName = strcat(basename,'_',num2str(oo),ext);
-                imfile = fullfile(outputImDir,multiInstanceName);
-                imwrite(croppedRGB,imfile);
-            catch ME
-                imwrite(croppedRGB,imfile);
-            end
-            
+            [~,basename,ext] = fileparts(imfile);
+            multiInstanceName = strcat(basename,'_',num2str(oo),ext);
+            imfile = fullfile(outputImDir,multiInstanceName);
+            imwrite(croppedRGB,imfile);
+
             segfile = fullfile(outputSegDir,imname);
-            try
-                imread(segfile);
-                [pathstr,basename,ext] = fileparts(segfile);
-                multiInstanceName = strcat(basename,'_',num2str(oo),ext);
-                segfile = fullfile(outputSegDir,multiInstanceName);
-                imwrite(croppedMask,segfile);
-            catch ME
-                imwrite(croppedMask,segfile);
-            end
+            [~,basename,ext] = fileparts(segfile);
+            multiInstanceName = strcat(basename,'_',num2str(oo),ext);
+            segfile = fullfile(outputSegDir,multiInstanceName);
+            imwrite(croppedMask,segfile);
+
         end
     end
 end
