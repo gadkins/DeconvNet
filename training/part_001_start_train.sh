@@ -24,4 +24,4 @@ mkdir training_log
 ./start_train.sh
 
 ## copy and rename trained model
-cp ./snapshot/part_stage_1_train_iter_20000.caffemodel ./part_stage_1_train_result/part_stage_1_train_result.caffemodel
+cp ./snapshot/part_stage_1_train_iter_5000.caffemodel ./part_stage_1_train_result/part_stage_1_train_result.caffemodel
