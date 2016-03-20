@@ -32,20 +32,21 @@ pimap = part2ind();     % part index mapping
 % Select a class and part
 className = 'person';
 classID = classMap(className);
-partName = 'head';
+partName = 'torso';
 
 close all
 % Input
-anno_files = './Annotations_Part/%s.mat';
-examples_path = './examples';
-examples_imgs = dir([examples_path, '/', '*.jpg']);
+anno_dir = 'Annotations_Part/';
+anno_files = dir(strcat(anno_dir,'*.mat'));
+img_path = '../VOC2012/JPEGImages';
+% images = dir([img_path, '/', '%s.jpg']);
 cmap = VOClabelcolormap();
 
 % Output
 outputRoot = pwd;
-
 outputImDir = fullfile(outputRoot,'images',className,partName);
 outputSegDir = fullfile(outputRoot,'segmentations',className,partName);
+
 if ~exist(outputImDir, 'dir')
   mkdir(outputImDir);
   fileattrib(outputImDir,'+w','u');
@@ -55,11 +56,12 @@ if ~exist(outputSegDir, 'dir')
   fileattrib(outputSegDir,'+w','u');
 end
 
-for ii = 1:numel(examples_imgs)
-    imname = examples_imgs(ii).name;
-    img = imread([examples_path, '/', imname]);
+for ii = 1:numel(anno_files)
+    matname = anno_files(ii).name;
+    load(strcat(anno_dir,matname));
+    imname = strcat(matname(1:end-4),'.jpg');
+    img = imread([img_path, '/', imname]);
     % load annotation -- anno
-    load(sprintf(anno_files, imname(1:end-4)));
     objects = get_class_obj(anno, classID);
     if(isempty(objects))
         continue;
@@ -76,6 +78,7 @@ for ii = 1:numel(examples_imgs)
             % N.B. '_2.jpg' means there are at least two instances of
             % the object class, however, not necessarily two instances of
             % the part
+
             imfile = fullfile(outputImDir,imname);
             [~,basename,ext] = fileparts(imfile);
             multiInstanceName = strcat(basename,'_',num2str(oo),ext);
@@ -87,7 +90,9 @@ for ii = 1:numel(examples_imgs)
             multiInstanceName = strcat(basename,'_',num2str(oo),ext);
             segfile = fullfile(outputSegDir,multiInstanceName);
             imwrite(croppedMask,segfile);
-
+            if (ii>=500 && mod(ii,500) == 0)
+                sprintf('%s parts found...',ii);
+            end
         end
     end
 end
