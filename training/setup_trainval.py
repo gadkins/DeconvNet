@@ -7,19 +7,21 @@ import random
 import math
 
 data_root = "/home/cv/DeconvNet/data/Pascal-Part"
+part = "torso/"
+
 # Location of training images
-img_dir = "/images/person/torso/"
+img_dir = "/images/person/"+part
 
 # Location of corresponding annotations (segmentation labels)
-seg_dir = "/segmentations/person/torso/"
+seg_dir = "/segmentations/person/"+part
 
 # Location to store train.txt and val.txt
-imgsets_dir = "/home/cv/DeconvNet/data/imagesets/part_stage_1_train_imgset/"
+imgsets_dir = "/home/cv/DeconvNet/data/imagesets/part_trainval_imgset/"+part
 train = imgsets_dir+"train.txt"
 val = imgsets_dir+"val.txt"
 
 # Training & validation split ratio
-train_ratio = 0.7
+train_ratio = 0.9
 
 
 # Build imageset
