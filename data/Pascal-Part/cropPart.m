@@ -16,6 +16,7 @@ for ii = 1:numel(rect)
    rect(ii) = fix(rect(ii)); 
 end
 
+
 croppedRGB = imcrop(im, rect);
 croppedRGB = imresize(croppedRGB,outputSize);
 croppedMask = imcrop(partMask,rect);
