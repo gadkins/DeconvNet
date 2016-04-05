@@ -32,7 +32,7 @@ pimap = part2ind();     % part index mapping
 % Select a class and part
 className = 'person';
 classID = classMap(className);
-partName = 'torso';
+partName = 'llarm';
 
 close all
 % Input

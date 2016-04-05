@@ -1,5 +1,4 @@
-
-imagesFolder = dir(['/home/cv/DeconvNet/data/Pascal-Part/images/person/torso','/*.jpg']);
+imagesFolder = dir(['/home/cv/DeconvNet/data/Pascal-Part/images/person/larm','/*.jpg']);
 N_files = length(imagesFolder(not([imagesFolder.isdir])));
 
 intial_file = imread(imagesFolder(1).name);
